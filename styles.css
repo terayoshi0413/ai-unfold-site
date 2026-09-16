@@ -1,0 +1,543 @@
+/* AI UNFOLD / 合同会社unfold
+   アクセントは #1F4E79 のみ。グラデーション・影・アニメーションは使用しない。
+   罫線はセクションの境目のみ、#E3E6E8 の1px に統一。 */
+
+:root {
+  --bg: #FFFFFF;
+  --bg-hero: #F4F6F8;
+  --bg-tinted: #F6F7F8;
+  --text: #1A1D1F;
+  --text-sub: #5C6368;
+  --accent: #1F4E79;
+  --rule: #E3E6E8;
+  --bg-table-head: #F0F2F4;
+
+  --font: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", "Noto Sans JP", "Meiryo", sans-serif;
+
+  /* セクションの境目に96pxの余白をとる（上下48pxずつ） */
+  --section-space: 48px;
+  /* 段落間 */
+  --para-space: 32px;
+  /* 左カラム（見出し）の幅と、本文カラムとの間隔 */
+  --label-col: 180px;
+  --col-gap: 48px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { color-scheme: light; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  -webkit-text-size-adjust: 100%;
+}
+
+.container {
+  max-width: 920px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* ---- リンク・フォーカス ---- */
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+
+a:hover { text-decoration: none; }
+
+a:focus-visible,
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---- ヘッダー / フッター ---- */
+
+.site-header { border-bottom: 1px solid var(--rule); }
+
+/* マークと社名の並び。ヘッダーは高さ64pxで上下中央。 */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-header .brand { height: 64px; }
+
+.brand-mark {
+  display: block;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.brand-mark-sm {
+  flex-basis: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.site-name { margin: 0; }
+
+.site-name-en {
+  display: block;
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+}
+
+.site-name-ja {
+  display: block;
+  color: var(--text-sub);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+}
+
+.site-footer {
+  padding-block: 32px 40px;
+  border-top: 1px solid var(--rule);
+  color: var(--text-sub);
+  font-size: 14px;
+}
+
+.site-footer p { margin: 0; }
+
+/* ---- セクション ---- */
+
+section { padding-block: var(--section-space); }
+
+/* 区切り線はセクションの境目にのみ引く */
+main > section + section { border-top: 1px solid var(--rule); }
+
+section.tinted { background: var(--bg-tinted); }
+
+/* 見出しを左カラム、本文を右カラムに置く2カラム構成 */
+.section-grid {
+  display: grid;
+  grid-template-columns: var(--label-col) 1fr;
+  column-gap: var(--col-gap);
+  align-items: start;
+}
+
+.section-grid > h2 { grid-column: 1; }
+
+.section-body { grid-column: 2; }
+
+h1, h2, h3 {
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+h1 {
+  margin: 0 0 var(--para-space);
+  font-size: clamp(32px, 6vw, 44px);
+  font-weight: 700;
+}
+
+h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+h3 {
+  margin: 48px 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.section-body > :first-child { margin-top: 0; }
+
+p { margin: 0 0 var(--para-space); }
+
+.section-note {
+  color: var(--text-sub);
+  font-size: 15px;
+}
+
+ul {
+  margin: 0 0 var(--para-space);
+  padding-left: 1.4em;
+}
+
+li { margin-bottom: 8px; }
+
+li:last-child { margin-bottom: 0; }
+
+/* セクション末尾の要素は下マージンを持たせない（余分な空白の防止） */
+p:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+table:last-child,
+figure:last-child { margin-bottom: 0; }
+
+/* ---- ファーストビュー ---- */
+
+.hero {
+  position: relative;
+  padding-block: 80px var(--section-space);
+  background-color: var(--bg-hero);
+  background-image: url("img/hero.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* 文字を読めるようにするための白のオーバーレイ */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+/* 見出しと本文をオーバーレイの前面に出す */
+.hero > .container {
+  position: relative;
+  z-index: 2;
+}
+
+.lead {
+  margin: 0 0 16px;
+  max-width: 36em;
+  font-size: 18px;
+}
+
+.hero-meta {
+  margin: 0;
+  max-width: 36em;
+  color: var(--text-sub);
+  font-size: 15px;
+}
+
+/* ---- 画面キャプチャの枠組み（影は使わない／角丸は2pxまで） ---- */
+
+.shot {
+  margin: 0;
+  padding: 16px;
+  background: var(--bg-tinted);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+}
+
+.shot figcaption {
+  margin-top: 12px;
+  color: var(--text-sub);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: left;
+}
+
+/* ---- 線画の図版（枠線・背景は付けない） ---- */
+
+.diagram {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.diagram img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.diagram figcaption {
+  margin-top: 12px;
+  color: var(--text-sub);
+  font-size: 14px;
+}
+
+.figure-block > h2 {
+  margin: 0 0 24px;
+  font-size: 21px;
+}
+
+/* ---- カリキュラム（第1回→第6回の順序があるため番号を使う） ---- */
+
+.curriculum {
+  margin: 0;
+  padding: 0 0 0 32px;
+  border-left: 1px solid var(--rule);
+  list-style: none;
+}
+
+/* 各回の見出しの位置に置く点。縦線の上に重ねる。 */
+.curriculum > li {
+  position: relative;
+  margin-bottom: var(--para-space);
+}
+
+.curriculum > li::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: -32px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translateX(-50%);
+}
+
+.curriculum > li:last-child { margin-bottom: 0; }
+
+.curriculum h3 { margin-top: 0; }
+
+.curriculum p:last-child { margin-bottom: 0; }
+
+.session-no {
+  display: block;
+  color: var(--accent);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+/* カリキュラム内に置く演習画面の図版 */
+.lesson-figure {
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+/* ---- 価格（表の罫線は行の区切りとして残す） ---- */
+
+/* 左に12px張り出させ、強調行の縦線がセル文字の外側に来るようにする。
+   セル文字の左端は本文と揃う（-12px + 3px枠 + 9px余白 = 0）。 */
+.price {
+  width: calc(100% + 12px);
+  margin-left: -12px;
+  margin-bottom: 12px;
+  border-collapse: collapse;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.price caption {
+  padding-left: 12px;
+  margin-bottom: 12px;
+  color: var(--text-sub);
+  font-size: 15px;
+  text-align: left;
+}
+
+.price th,
+.price td {
+  padding: 14px 0 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  font-weight: 400;
+  vertical-align: top;
+}
+
+/* 見出し行 */
+.price thead th {
+  border-top: 1px solid var(--rule);
+  background: var(--bg-table-head);
+  color: var(--text-sub);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* 1列目（人数）は左寄せ。全行に透明な3px枠を置いて桁位置を揃える。 */
+.price th:first-child,
+.price td:first-child {
+  padding-left: 9px;
+  border-left: 3px solid transparent;
+  text-align: left;
+}
+
+.price tbody th { font-weight: 400; }
+
+/* 6〜10名の行を強調する */
+.row-highlight { background: rgba(31, 78, 121, 0.05); }
+
+.row-highlight th:first-child { border-left-color: var(--accent); }
+
+.row-highlight td:nth-child(2),
+.row-highlight td:nth-child(4) { font-weight: 700; }
+
+/* 個人価格との差額。小さなラベルとして見せる。 */
+.save {
+  display: inline-block;
+  padding: 2px 6px;
+  background: rgba(31, 78, 121, 0.08);
+  border-radius: 2px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* 「10名の場合」などの注記 */
+.price small {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-sub);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* ---- よくある質問（開閉。JavaScriptは使わない） ---- */
+
+.faq {
+  margin: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.faq-item { border-bottom: 1px solid var(--rule); }
+
+.faq-item summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 20px 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+/* 開閉の印。閉じているときは +、開いているときは −。 */
+.faq-item summary::after {
+  content: "+";
+  flex: 0 0 1em;
+  color: var(--accent);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+}
+
+.faq-item[open] summary::after { content: "\2212"; }
+
+.faq-item > p {
+  margin: 0;
+  padding: 0 0 24px;
+}
+
+/* ---- 事業者情報 ---- */
+
+.company {
+  display: grid;
+  grid-template-columns: 7em 1fr;
+  gap: 12px 24px;
+  margin: 0;
+}
+
+.company dt {
+  color: var(--text-sub);
+  font-size: 15px;
+}
+
+.company dd { margin: 0; }
+
+/* ---- 問い合わせ（ページ内で唯一の行動導線） ---- */
+
+.contact-action { margin-bottom: var(--para-space); }
+
+.contact-button {
+  display: inline-block;
+  padding: 16px 32px;
+  background: var(--accent);
+  color: #FFFFFF;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.contact-button:hover { text-decoration: underline; }
+
+.contact-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---- スマートフォン（1カラムに戻す） ---- */
+
+@media (max-width: 768px) {
+  :root {
+    --section-space: 32px;
+    --para-space: 24px;
+  }
+
+  .container { padding-inline: 20px; }
+
+  .site-name-en { font-size: 18px; }
+
+  .site-name-ja { font-size: 10px; }
+
+  .section-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-grid > h2,
+  .section-body { grid-column: 1; }
+
+  .section-grid > h2 { margin-bottom: 24px; }
+
+  .hero { padding-block: 48px var(--section-space); }
+
+  h3 { margin-top: 32px; }
+
+  .faq-item summary {
+    padding: 16px 0;
+    font-size: 16px;
+  }
+
+  /* 4列を375px幅に収めるため一段小さくする */
+  .price {
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+
+  .price th,
+  .price td { padding: 12px 0 12px 10px; }
+
+  .price thead th { font-size: 13px; }
+
+  .price small { font-size: 12px; }
+
+  .curriculum { padding-left: 24px; }
+
+  .curriculum > li::before { left: -24px; }
+
+  .company {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .company dd { margin-bottom: 12px; }
+
+  .company dd:last-child { margin-bottom: 0; }
+
+  .contact-button {
+    display: block;
+    padding: 16px 20px;
+    font-size: 16px;
+    text-align: center;
+  }
+}
