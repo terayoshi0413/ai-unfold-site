@@ -256,6 +256,14 @@ figure:last-child { margin-bottom: 0; }
   margin: 0 auto;
 }
 
+/* 700px幅の図。右カラム（644px）に収まらないため、
+   左の見出しカラムぶんだけ左へ張り出させて本文幅を使う。 */
+.diagram-wide {
+  width: calc(100% + var(--label-col) + var(--col-gap));
+  max-width: 700px;
+  margin-left: calc(-1 * (var(--label-col) + var(--col-gap)));
+}
+
 .diagram img {
   display: block;
   width: 100%;
@@ -522,6 +530,12 @@ figure:last-child { margin-bottom: 0; }
   .price small { font-size: 12px; }
 
   .curriculum { padding-left: 24px; }
+
+  /* 1カラムに戻るので張り出しを解除する */
+  .diagram-wide {
+    width: 100%;
+    margin-left: 0;
+  }
 
   .curriculum > li::before { left: -24px; }
 
